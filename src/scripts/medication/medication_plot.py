@@ -14,9 +14,12 @@ from openpyxl.styles import PatternFill
 import plotly.graph_objects as go
 import urllib.request
 import numpy as np
+import plotly.express as px
 
 # # Read data
-data = pd.read_excel('H:/cloud/cloud_data/Projects/DISCHARGEMaster/src/scripts/medication/sanStat.xlsx', sheet_name='for graph by R')
+filepat_data = 'H:/cloud/cloud_data/Projects/DISCHARGEMaster/src/scripts/medication/sanStat.xlsx'
+filepath_html = 'H:/cloud/cloud_data/Projects/MixedEffectModels/src/scripts/medication/html/medication_plot.html'
+data = pd.read_excel(filepat_data, sheet_name='for graph by R')
 
 # Create labels and links
 label_org = list(np.unique((data['sanStat ( left column in the graph)']))) + list(np.unique((data['statins2 ( right column in the graph) '])))
@@ -53,4 +56,5 @@ fig = go.Figure(data=[go.Sankey(
 fig.update_layout(title_text="Statine statistics", font_size=10)
 fig.show()
 
-
+# Export html plot
+fig.write_html(filepath_html)
